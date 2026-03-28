@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LunaBlu | Contact</title>
+  <meta name="description" content="Contact LunaBlu for orders and enquiries." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand">
+        <img src="images/Lunablu-logo.png" alt="LunaBlu logo" class="logo" />
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="order.html">Order</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Get in touch</p>
+        <h1>Contact Us</h1>
+        <p class="page-intro">
+          For orders, questions, or product information, contact LunaBlu directly.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid-2">
+        <article class="card">
+          <h2>Business Information</h2>
+          <div class="contact-list">
+            <p><strong>Company:</strong> Lunablu</p>
+            <p><strong>Contact Person:</strong> John Borg</p>
+            <p><strong>Phone:</strong> <a href="tel:+35699450622">+356 9945 0622</a></p>
+            <p><strong>Email:</strong> <a href="mailto:info@lunablu.com">lunablu.info9@gmail.com</a></p>
+            <p><strong>Address:</strong> Fgura, Malta</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Quick Contact</h2>
+          <form id="contactForm" action="https://formspree.io/f/xbdpdpza" method="POST">
+            <div class="form-group">
+              <label for="contactName">Full Name *</label>
+              <input type="text" id="contactName" name="name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="contactEmail">Email *</label>
+              <input type="email" id="contactEmail" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="contactMessage">Message *</label>
+              <textarea id="contactMessage" name="message" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <p id="contactFormMessage" class="form-message" aria-live="polite"></p>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>© <span id="year"></span> LunaBlu. All rights reserved.</p>
+      <p>Detergent and cleaning products.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

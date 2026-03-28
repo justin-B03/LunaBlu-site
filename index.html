@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LunaBlu</title>
+  <title>LunaBlu | Home</title>
+  <meta name="description" content="LunaBlu detergent and cleaning products for homes and businesses." />
   <link rel="stylesheet" href="css/style.css" />
-</head>         
+</head>
 <body>
   <header class="site-header">
-    <div class="container">
-      <h1>LunaBlu</h1>
-      <nav>
-        <a href="index.html">Home</a>
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand">
+        <img src="images/Lunablu-logo.png" alt="LunaBlu logo" class="logo" />
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+      <nav class="site-nav">
+        <a href="index.html" class="active">Home</a>
         <a href="products.html">Products</a>
         <a href="order.html">Order</a>
         <a href="contact.html">Contact</a>
@@ -20,12 +26,77 @@
   </header>
 
   <main>
-    <section class="hero container">
-      <h2>Cleaning products for homes and businesses</h2>
-      <p>Reliable detergents, cleaners, and hygiene products for everyday use.</p>
-      <a class="btn" href="order.html">Place an Order</a>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Quality cleaning products</p>
+          <h1>Reliable detergent solutions for homes and businesses</h1>
+          <p class="hero-text">
+            LunaBlu provides practical, effective cleaning products with a focus on quality,
+            consistency, affordability, and everyday usability.
+          </p>
+
+          <div class="hero-actions">
+            <a href="products.html" class="btn btn-primary">View Products</a>
+            <a href="order.html" class="btn btn-secondary">Place an Order</a>
+          </div>
+        </div>
+
+        <!-- <div class="card hero-card">
+          <h2>Why choose LunaBlu</h2>
+          <ul class="feature-list">
+            <li>Trusted cleaning solutions</li>
+            <li>Suitable for home and commercial use</li>
+            <li>Simple ordering process</li>
+            <li>Direct support for enquiries and orders</li>
+          </ul>
+        </div> -->
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>What we offer</h2>
+          <p>Core products for daily cleaning needs.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Laundry Detergents</h3>
+            <p>Cleaning solutions designed for everyday washing performance.</p>
+          </article>
+
+          <article class="card">
+            <h3>Floor Cleaners</h3>
+            <p>Effective products for keeping floors fresh, clean, and presentable.</p>
+          </article>
+
+          <article class="card">
+            <h3>General Surface Cleaners</h3>
+            <p>Versatile products suitable for regular household and workplace cleaning.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt-section">
+      <div class="container cta-box">
+        <div>
+          <h2>Need to place an order?</h2>
+          <p>Use the order page and send the request directly. No complicated system needed.</p>
+        </div>
+        <a href="order.html" class="btn btn-primary">Go to Order Page</a>
+      </div>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>© <span id="year"></span> LunaBlu. All rights reserved.</p>
+      <p>Detergent and cleaning products.</p>
+    </div>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>

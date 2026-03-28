@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LunaBlu | Order</title>
+  <meta name="description" content="Place an order with LunaBlu." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand">
+        <img src="images/Lunablu-logo.png" alt="LunaBlu logo" class="logo" />
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="order.html" class="active">Order</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Order request</p>
+        <h1>Place an Order</h1>
+        <p class="page-intro">
+          Fill in the form below and send your order request by email.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container order-layout">
+        <div class="card">
+          <h2>Customer Details</h2>
+
+          <form id="orderForm" novalidate>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" required />
+              </div>
+
+              <div class="form-group">
+                <label for="companyName">Company Name</label>
+                <input type="text" id="companyName" name="companyName" />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="address">Delivery Address *</label>
+              <textarea id="address" name="address" rows="3" required></textarea>
+            </div>
+
+            <h2 class="form-section-title">Products</h2>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="laundryQty">Laundry Detergent</label>
+                <input type="number" id="laundryQty" name="laundryQty" min="0" value="0" />
+              </div>
+
+              <div class="form-group">
+                <label for="floorQty">Floor Cleaner</label>
+                <input type="number" id="floorQty" name="floorQty" min="0" value="0" />
+              </div>
+
+              <div class="form-group">
+                <label for="dishQty">Dishwashing Liquid</label>
+                <input type="number" id="dishQty" name="dishQty" min="0" value="0" />
+              </div>
+
+              <div class="form-group">
+                <label for="glassQty">Glass Cleaner</label>
+                <input type="number" id="glassQty" name="glassQty" min="0" value="0" />
+              </div>
+
+              <div class="form-group">
+                <label for="surfaceQty">Surface Cleaner</label>
+                <input type="number" id="surfaceQty" name="surfaceQty" min="0" value="0" />
+              </div>
+
+              <div class="form-group">
+                <label for="bathroomQty">Bathroom Cleaner</label>
+                <input type="number" id="bathroomQty" name="bathroomQty" min="0" value="0" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Notes</label>
+              <textarea id="notes" name="notes" rows="4" placeholder="Optional notes..."></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Send Order Request</button>
+              <button type="reset" class="btn btn-secondary">Clear Form</button>
+            </div>
+
+            <p id="orderMessage" class="form-message" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <aside class="card">
+          <h2>Order Summary</h2>
+          <div id="orderSummary" class="summary-box">
+            <p>No products selected yet.</p>
+          </div>
+
+          <div class="summary-note">
+            <p><strong>Note:</strong> This starter version opens the user’s email app with the order filled in.</p>
+            <p>Later, connect Formspree to send orders directly.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <p>© <span id="year"></span> LunaBlu. All rights reserved.</p>
+      <p>Detergent and cleaning products.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
