@@ -34,6 +34,32 @@ function setupOrderPage() {
 
   if (!orderForm || !summary || !totals || !orderMessage) return;
 
+  const qtyButtons = orderForm.querySelectorAll(".qty-btn");
+
+  qtyButtons.forEach(button => {
+    button.addEventListener("click", function () {
+      const targetId = button.dataset.target;
+      const action = button.dataset.action;
+      const input = document.getElementById(targetId);
+
+      if (!input) return;
+
+      let value = parseInt(input.value || "0", 10);
+      if (isNaN(value) || value < 0) value = 0;
+
+      if (action === "increase") {
+        value += 1;
+      }
+
+      if (action === "decrease") {
+        value = Math.max(0, value - 1);
+      }
+
+      input.value = value;
+      updateSummary();
+    });
+  });
+
   const BOTTLE_PRICE = 2.00;
   const BOX_PRICE = 7.00;
   const VAT_RATE = 0.18;
@@ -129,10 +155,11 @@ function setupOrderPage() {
     document.getElementById("totalField").value = total.toFixed(2);
   }
 
-  const inputs = orderForm.querySelectorAll('input[type="number"]');
-  inputs.forEach(input => {
-    input.addEventListener("input", updateSummary);
-  });
+const qtyInputs = orderForm.querySelectorAll(".qty-stepper input");
+
+qtyInputs.forEach(input => {
+  input.addEventListener("input", updateSummary);
+});
 
   updateSummary();
 

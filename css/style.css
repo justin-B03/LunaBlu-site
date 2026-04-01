@@ -1020,3 +1020,50 @@ a:hover {
   padding: 0.9rem 1rem;
   border-radius: 12px;
 }
+
+.qty-stepper {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.qty-stepper input {
+  border: 0;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-radius: 0;
+  text-align: center;
+  padding: 0.85rem 0.4rem;
+  font-weight: 700;
+  background: #fff;
+  min-width: 0;
+}
+
+.qty-stepper input:focus {
+  outline: none;
+  border-color: var(--border);
+}
+
+.qty-btn {
+  border: 0;
+  background: #f6fafc;
+  color: var(--dark);
+  font-size: 1.35rem;
+  font-weight: 700;
+  cursor: pointer;
+  height: 100%;
+  min-height: 52px;
+  transition: background 0.2s ease;
+}
+
+.qty-btn:hover {
+  background: #edf6fb;
+}
+
+.qty-btn:active {
+  background: #dfeef8;
+}
