@@ -29,100 +29,166 @@ function setupMobileMenu() {
 function setupOrderPage() {
   const orderForm = document.getElementById("orderForm");
   const summary = document.getElementById("orderSummary");
+  const totals = document.getElementById("orderTotals");
   const orderMessage = document.getElementById("orderMessage");
 
-  if (!orderForm || !summary || !orderMessage) return;
+  if (!orderForm || !summary || !totals || !orderMessage) return;
 
-  const productFields = [
-    { id: "laundryQty", name: "Laundry Detergent" },
-    { id: "floorQty", name: "Floor Cleaner" },
-    { id: "dishQty", name: "Dishwashing Liquid" },
-    { id: "glassQty", name: "Glass Cleaner" },
-    { id: "surfaceQty", name: "Surface Cleaner" },
-    { id: "bathroomQty", name: "Bathroom Cleaner" }
+  const BOTTLE_PRICE = 2.00;
+  const BOX_PRICE = 7.00;
+  const VAT_RATE = 0.18;
+
+  const products = [
+    { name: "Marsiglia", bottleId: "marsigliaBottle", boxId: "marsigliaBox" },
+    { name: "Nero", bottleId: "neroBottle", boxId: "neroBox" },
+    { name: "Blue Matic", bottleId: "blueMaticBottle", boxId: "blueMaticBox" },
+    { name: "Dishwashing Soap", bottleId: "dishwashingBottle", boxId: "dishwashingBox" },
+    { name: "Floor Detergent", bottleId: "floorBottle", boxId: "floorBox" },
+    { name: "Softener", bottleId: "softenerBottle", boxId: "softenerBox" }
   ];
 
-  function getSelectedProducts() {
-    return productFields
-      .map(product => {
-        const input = document.getElementById(product.id);
-        const qty = parseInt(input.value || "0", 10);
-        return { name: product.name, qty: isNaN(qty) ? 0 : qty };
-      })
-      .filter(product => product.qty > 0);
+  function getIntValue(id) {
+    const value = parseInt(document.getElementById(id)?.value || "0", 10);
+    return isNaN(value) || value < 0 ? 0 : value;
   }
 
-  function renderSummary() {
-    const selected = getSelectedProducts();
+  function formatMoney(value) {
+    return `€${value.toFixed(2)}`;
+  }
 
-    if (selected.length === 0) {
+  function getSelections() {
+    return products.map(product => {
+      const bottles = getIntValue(product.bottleId);
+      const boxes = getIntValue(product.boxId);
+      const lineSubtotal = (bottles * BOTTLE_PRICE) + (boxes * BOX_PRICE);
+
+      return {
+        ...product,
+        bottles,
+        boxes,
+        lineSubtotal
+      };
+    }).filter(item => item.bottles > 0 || item.boxes > 0);
+  }
+
+  function updateSummary() {
+    const selections = getSelections();
+
+    if (selections.length === 0) {
       summary.innerHTML = "<p>No products selected yet.</p>";
+      totals.innerHTML = `
+        <div class="summary-total-row">
+          <span>Subtotal (excl. VAT)</span>
+          <strong>€0.00</strong>
+        </div>
+        <div class="summary-total-row">
+          <span>VAT (18%)</span>
+          <strong>€0.00</strong>
+        </div>
+        <div class="summary-total-row grand-total">
+          <span>Total (incl. VAT)</span>
+          <strong>€0.00</strong>
+        </div>
+      `;
       return;
     }
 
-    const items = selected.map(item => `<li>${item.name} - Qty: ${item.qty}</li>`).join("");
-    summary.innerHTML = `<ul>${items}</ul>`;
+    const summaryItems = selections.map(item => {
+      const parts = [];
+      if (item.bottles > 0) parts.push(`${item.bottles} bottle${item.bottles > 1 ? "s" : ""}`);
+      if (item.boxes > 0) parts.push(`${item.boxes} box${item.boxes > 1 ? "es" : ""}`);
+      return `<li><strong>${item.name}</strong> — ${parts.join(" + ")} <span class="summary-line-price">(${formatMoney(item.lineSubtotal)} excl. VAT)</span></li>`;
+    }).join("");
+
+    const subtotal = selections.reduce((sum, item) => sum + item.lineSubtotal, 0);
+    const vat = subtotal * VAT_RATE;
+    const total = subtotal + vat;
+
+    summary.innerHTML = `<ul>${summaryItems}</ul>`;
+
+    totals.innerHTML = `
+      <div class="summary-total-row">
+        <span>Subtotal (excl. VAT)</span>
+        <strong>${formatMoney(subtotal)}</strong>
+      </div>
+      <div class="summary-total-row">
+        <span>VAT (18%)</span>
+        <strong>${formatMoney(vat)}</strong>
+      </div>
+      <div class="summary-total-row grand-total">
+        <span>Total (incl. VAT)</span>
+        <strong>${formatMoney(total)}</strong>
+      </div>
+    `;
+
+    document.getElementById("orderBreakdownField").value = selections.map(item => {
+      return `${item.name}: ${item.bottles} bottles, ${item.boxes} boxes`;
+    }).join(" | ");
+    document.getElementById("subtotalField").value = subtotal.toFixed(2);
+    document.getElementById("vatField").value = vat.toFixed(2);
+    document.getElementById("totalField").value = total.toFixed(2);
   }
 
-  productFields.forEach(product => {
-    const input = document.getElementById(product.id);
-    if (input) {
-      input.addEventListener("input", renderSummary);
-    }
+  const inputs = orderForm.querySelectorAll('input[type="number"]');
+  inputs.forEach(input => {
+    input.addEventListener("input", updateSummary);
   });
 
-  renderSummary();
+  updateSummary();
 
-  orderForm.addEventListener("submit", function (e) {
+  orderForm.addEventListener("submit", async function (e) {
     e.preventDefault();
-    orderMessage.textContent = "";
 
     const fullName = document.getElementById("fullName").value.trim();
-    const companyName = document.getElementById("companyName").value.trim();
     const email = document.getElementById("email").value.trim();
     const phone = document.getElementById("phone").value.trim();
     const address = document.getElementById("address").value.trim();
-    const notes = document.getElementById("notes").value.trim();
-    const selected = getSelectedProducts();
+    const selections = getSelections();
+
+    orderMessage.textContent = "";
+    orderMessage.className = "form-message";
 
     if (!fullName || !email || !phone || !address) {
       orderMessage.textContent = "Please fill in all required customer details.";
+      orderMessage.classList.add("error");
       return;
     }
 
-    if (selected.length === 0) {
-      orderMessage.textContent = "Please select at least one product quantity.";
+    if (selections.length === 0) {
+      orderMessage.textContent = "Please select at least one product.";
+      orderMessage.classList.add("error");
       return;
     }
 
-    const lines = selected.map(item => `- ${item.name}: ${item.qty}`).join("\n");
+    updateSummary();
 
-    const subject = encodeURIComponent(`LunaBlu Order Request - ${fullName}`);
-    const body = encodeURIComponent(
-`New order request
+    try {
+      const response = await fetch(orderForm.action, {
+        method: "POST",
+        body: new FormData(orderForm),
+        headers: {
+          Accept: "application/json"
+        }
+      });
 
-Customer Details
-Name: ${fullName}
-Company: ${companyName || "N/A"}
-Email: ${email}
-Phone: ${phone}
-Address: ${address}
-
-Products
-${lines}
-
-Notes
-${notes || "N/A"}`
-    );
-
-    const businessEmail = "info@lunablu.com";
-    window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
+      if (response.ok) {
+        orderMessage.textContent = "Your order request has been sent successfully. We will contact you when the order is ready.";
+        orderMessage.classList.add("success");
+        orderForm.reset();
+        updateSummary();
+      } else {
+        orderMessage.textContent = "Something went wrong. Please try again.";
+        orderMessage.classList.add("error");
+      }
+    } catch (error) {
+      orderMessage.textContent = "Something went wrong. Please try again.";
+      orderMessage.classList.add("error");
+    }
   });
 
   orderForm.addEventListener("reset", function () {
     setTimeout(() => {
-      orderMessage.textContent = "";
-      renderSummary();
+      updateSummary();
     }, 0);
   });
 }

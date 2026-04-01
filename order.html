@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LunaBlu | Order</title>
   <meta name="description" content="Place an order with LunaBlu." />
+  <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -25,13 +26,19 @@
     </div>
   </header>
 
+  <div class="promo-bar">
+    <div class="container">
+      <p>Free delivery across Malta</p>
+    </div>
+  </div>
+
   <main>
     <section class="page-hero">
       <div class="container">
         <p class="eyebrow">Order request</p>
         <h1>Place an Order</h1>
         <p class="page-intro">
-          Fill in the form below and send your order request by email.
+          Fill in the form below to send your order request. Payment is done on delivery, with no prepayment needed.
         </p>
       </div>
     </section>
@@ -39,9 +46,14 @@
     <section class="section">
       <div class="container order-layout">
         <div class="card">
+          <div class="order-info-banner">
+            <p><strong>Pricing:</strong> €2.00 + 18% VAT per bottle, or €7.00 + 18% VAT per box of 4.</p>
+            <p><strong>Payment:</strong> Pay on delivery. No prepayment needed.</p>
+          </div>
+
           <h2>Customer Details</h2>
 
-          <form id="orderForm" novalidate>
+          <form id="orderForm" action="https://formspree.io/f/meepzglp" method="POST" novalidate>
             <div class="form-grid">
               <div class="form-group">
                 <label for="fullName">Full Name *</label>
@@ -70,36 +82,111 @@
             </div>
 
             <h2 class="form-section-title">Products</h2>
+            <p class="order-helper-text">
+              For each product, choose bottles, boxes of 4, or a mix of both.
+            </p>
 
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="laundryQty">Laundry Detergent</label>
-                <input type="number" id="laundryQty" name="laundryQty" min="0" value="0" />
+            <div class="order-products">
+              <div class="order-product-row">
+                <div class="order-product-name">
+                  <h3>Marsiglia</h3>
+                  <p>Laundry Detergent · 3L</p>
+                </div>
+                <div class="order-product-inputs">
+                  <div class="form-group">
+                    <label for="marsigliaBottle">Bottles</label>
+                    <input type="number" id="marsigliaBottle" name="marsigliaBottle" min="0" value="0" />
+                  </div>
+                  <div class="form-group">
+                    <label for="marsigliaBox">Boxes (4)</label>
+                    <input type="number" id="marsigliaBox" name="marsigliaBox" min="0" value="0" />
+                  </div>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label for="floorQty">Floor Cleaner</label>
-                <input type="number" id="floorQty" name="floorQty" min="0" value="0" />
+              <div class="order-product-row">
+                <div class="order-product-name">
+                  <h3>Nero</h3>
+                  <p>Laundry Detergent · 3L</p>
+                </div>
+                <div class="order-product-inputs">
+                  <div class="form-group">
+                    <label for="neroBottle">Bottles</label>
+                    <input type="number" id="neroBottle" name="neroBottle" min="0" value="0" />
+                  </div>
+                  <div class="form-group">
+                    <label for="neroBox">Boxes (4)</label>
+                    <input type="number" id="neroBox" name="neroBox" min="0" value="0" />
+                  </div>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label for="dishQty">Dishwashing Liquid</label>
-                <input type="number" id="dishQty" name="dishQty" min="0" value="0" />
+              <div class="order-product-row">
+                <div class="order-product-name">
+                  <h3>Blue Matic</h3>
+                  <p>Laundry Detergent · 3L</p>
+                </div>
+                <div class="order-product-inputs">
+                  <div class="form-group">
+                    <label for="blueMaticBottle">Bottles</label>
+                    <input type="number" id="blueMaticBottle" name="blueMaticBottle" min="0" value="0" />
+                  </div>
+                  <div class="form-group">
+                    <label for="blueMaticBox">Boxes (4)</label>
+                    <input type="number" id="blueMaticBox" name="blueMaticBox" min="0" value="0" />
+                  </div>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label for="glassQty">Glass Cleaner</label>
-                <input type="number" id="glassQty" name="glassQty" min="0" value="0" />
+              <div class="order-product-row">
+                <div class="order-product-name">
+                  <h3>Dishwashing Soap</h3>
+                  <p>Dishwashing · 3L</p>
+                </div>
+                <div class="order-product-inputs">
+                  <div class="form-group">
+                    <label for="dishwashingBottle">Bottles</label>
+                    <input type="number" id="dishwashingBottle" name="dishwashingBottle" min="0" value="0" />
+                  </div>
+                  <div class="form-group">
+                    <label for="dishwashingBox">Boxes (4)</label>
+                    <input type="number" id="dishwashingBox" name="dishwashingBox" min="0" value="0" />
+                  </div>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label for="surfaceQty">Surface Cleaner</label>
-                <input type="number" id="surfaceQty" name="surfaceQty" min="0" value="0" />
+              <div class="order-product-row">
+                <div class="order-product-name">
+                  <h3>Floor Detergent</h3>
+                  <p>Floor Care · 3L</p>
+                </div>
+                <div class="order-product-inputs">
+                  <div class="form-group">
+                    <label for="floorBottle">Bottles</label>
+                    <input type="number" id="floorBottle" name="floorBottle" min="0" value="0" />
+                  </div>
+                  <div class="form-group">
+                    <label for="floorBox">Boxes (4)</label>
+                    <input type="number" id="floorBox" name="floorBox" min="0" value="0" />
+                  </div>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label for="bathroomQty">Bathroom Cleaner</label>
-                <input type="number" id="bathroomQty" name="bathroomQty" min="0" value="0" />
+              <div class="order-product-row">
+                <div class="order-product-name">
+                  <h3>Softener</h3>
+                  <p>Fabric Care · 3L</p>
+                </div>
+                <div class="order-product-inputs">
+                  <div class="form-group">
+                    <label for="softenerBottle">Bottles</label>
+                    <input type="number" id="softenerBottle" name="softenerBottle" min="0" value="0" />
+                  </div>
+                  <div class="form-group">
+                    <label for="softenerBox">Boxes (4)</label>
+                    <input type="number" id="softenerBox" name="softenerBox" min="0" value="0" />
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -107,6 +194,11 @@
               <label for="notes">Notes</label>
               <textarea id="notes" name="notes" rows="4" placeholder="Optional notes..."></textarea>
             </div>
+
+            <input type="hidden" id="orderBreakdownField" name="orderBreakdown" />
+            <input type="hidden" id="subtotalField" name="subtotalExVat" />
+            <input type="hidden" id="vatField" name="vatAmount" />
+            <input type="hidden" id="totalField" name="totalIncVat" />
 
             <div class="form-actions">
               <button type="submit" class="btn btn-primary">Send Order Request</button>
@@ -123,9 +215,25 @@
             <p>No products selected yet.</p>
           </div>
 
+          <div class="summary-totals" id="orderTotals">
+            <div class="summary-total-row">
+              <span>Subtotal (excl. VAT)</span>
+              <strong>€0.00</strong>
+            </div>
+            <div class="summary-total-row">
+              <span>VAT (18%)</span>
+              <strong>€0.00</strong>
+            </div>
+            <div class="summary-total-row grand-total">
+              <span>Total (incl. VAT)</span>
+              <strong>€0.00</strong>
+            </div>
+          </div>
+
           <div class="summary-note">
-            <p><strong>Note:</strong> This starter version opens the user’s email app with the order filled in.</p>
-            <p>Later, connect Formspree to send orders directly.</p>
+            <p><strong>Free delivery across Malta.</strong></p>
+            <p><strong>Payment is done on delivery.</strong></p>
+            <p>No prepayment needed.</p>
           </div>
         </aside>
       </div>
